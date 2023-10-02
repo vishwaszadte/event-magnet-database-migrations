@@ -1,0 +1,33 @@
+name: Sequelize Migrate
+
+on:
+  push:
+    branches:
+      - develop
+
+env:
+  DB_USERNAME: ${{ vars.DB_USERNAME }}
+  DB_PASSWORD: ${{ vars.DB_PASSWORD }}
+  DB_NAME: ${{ vars.DB_NAME }}
+  DB_HOST: ${{ vars.DB_HOST }}
+  DB_PORT: ${{ vars.DB_PORT}}
+  DB_DIALECT: ${{ vars.DB_DIALECT }}
+
+jobs:
+  sequelize-migrate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18.4" # Specify Node.js version 18.4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Sequelize Migrations
+        run: npx sequelize-cli db:migrate
