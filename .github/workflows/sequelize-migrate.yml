@@ -2,8 +2,9 @@ name: Sequelize Migrate
 
 on:
   push:
-    branches:
-      - develop
+    branches: ["develop"]
+  pull_request:
+    branches: ["develop"]
 
 env:
   DB_USERNAME: ${{ vars.DB_USERNAME }}
